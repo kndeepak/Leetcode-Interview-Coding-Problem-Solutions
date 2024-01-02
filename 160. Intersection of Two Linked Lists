@@ -1,0 +1,14 @@
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        l1 = headA
+        l2 = headB
+
+        while l1 != l2:
+            # If l1 is not None, move it to the next node; otherwise, move it to headB
+            l1 = l1.next if l1 else headB
+            
+            # If l2 is not None, move it to the next node; otherwise, move it to headA
+            l2 = l2.next if l2 else headA
+
+        # When the loop exits, either l1 or l2 points to the intersection node (if it exists)
+        return l1
