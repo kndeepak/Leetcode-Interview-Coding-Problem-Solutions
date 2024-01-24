@@ -1,0 +1,48 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}  # Dictionary to store children nodes. The keys are characters, and the values are TrieNode objects.
+        self.endofword = False  # Flag to mark if the node represents the end of a word.
+
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()  # The root node of the Trie, which does not hold any character.
+    
+    def insert(self, word: str) -> None:
+        # Insert a word into the Trie.
+        cur = self.root  # Start from the root node.
+        for c in word:  # Iterate over each character in the word.
+            if c not in cur.children:
+                cur.children[c] = TrieNode()  # If the character is not a child of the current node, add a new TrieNode.
+            cur = cur.children[c]  # Move to the child node corresponding to the character.
+        
+        cur.endofword = True  # Mark the end of the word.
+
+    def search(self, word: str) -> bool:
+        # Search for a word in the Trie.
+        cur = self.root  # Start from the root node.
+        for c in word:  # Iterate over each character in the word.
+            if c not in cur.children:
+                return False  # If a character is not found among the children, return False.
+            cur = cur.children[c]  # Move to the child node corresponding to the character.
+            
+        return cur.endofword  # Return True if the current node marks the end of the word.
+
+    def startsWith(self, prefix: str) -> bool:
+        # Check if any word in the Trie starts with the given prefix.
+        cur = self.root  # Start from the root node.
+        for c in prefix:  # Iterate over each character in the prefix.
+            if c not in cur.children:
+                return False  # If a character is not found among the children, return False.
+            cur = cur.children[c]  # Move to the child node corresponding to the character.
+            
+        return True  # Return True if the prefix is present in the Trie.
+
+        
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
